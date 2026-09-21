@@ -10,7 +10,6 @@ import { PERMISSION_ENUM } from "@/consts/common";
 import httpService from "@/services/httpService";
 import { UserInfo } from "@/interfaces/user";
 import { toast } from "react-toastify";
-import BaseUrl from "@/consts/baseUrl";
 
 interface AuthenticationContextI {
   loading: boolean;
@@ -33,8 +32,8 @@ const AuthenticationContext = createContext<AuthenticationContextI>({
   loading: false,
   isLogged: false,
   user: {} as any,
-  login: () => {},
-  logout: () => {},
+  login: () => { },
+  logout: () => { },
   isAdmin: false,
   isAppManager: false,
   isUser: false,
@@ -82,7 +81,7 @@ const AuthenticationProvider = ({ children }: { children: any }) => {
 
           httpService.saveTokenStorage(mockToken);
           httpService.saveUserStorage(mockUser);
-          window.location.href = BaseUrl.Homepage;
+          window.location.href = '/';
         } else {
           toast("Username / Password is not correct!", { type: "error" });
         }

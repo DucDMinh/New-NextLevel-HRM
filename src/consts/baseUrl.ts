@@ -1,20 +1,24 @@
-const BaseUrl = {
-  // ImportBaseURL
-  Homepage: "/",
-  Todos: "/todos",
-  Login: "/login",
-  Callbacks: "/login/callback",
-  Logout: "/logout",
-  AppManagement: "/apps",
-
-  CreateApp: "/create-app",
-
-  Users: "/users",
-  Settings: "/settings",
-  AppConnect: "/app-connect",
-
-  ChangePassword: "/change-password",
-  ForgotPassword: "/forgot-password",
+export const AuthUrl = {
+  Auth: "/auth",
+  Login: "/auth/login",
+  Logout: "/auth/logout",
+  ChangePassword: "/auth/change-password",
+  ForgotPassword: "/auth/forgot-password",
 };
 
-export default BaseUrl;
+export const AdminUrl = {
+  Homepage: "/admin",
+  Employee: "/admin/employees",
+  Attendance: "/admin/attendances",
+  Leave_Request: "/admin/leave-requests",
+  Payroll: "/admin/payrolls",
+  Error: "*",
+};
+
+export const EmpUrl = {
+  Homepage: "/",
+  Attendance: "/attendances",
+  Leave_Request: "/leave-requests",
+  Payroll: "/payrolls",
+  Error: "*",
+};

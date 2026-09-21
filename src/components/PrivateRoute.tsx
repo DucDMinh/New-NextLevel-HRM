@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import BaseUrl from "@/consts/baseUrl";
+import { AuthUrl } from "@/consts/baseUrl";
 import { useAuth } from "@/providers/AuthenticationProvider";
 
 const PrivateRoute = (props: { children: any }) => {
@@ -10,7 +10,7 @@ const PrivateRoute = (props: { children: any }) => {
     return props.children;
   }
 
-  return <Navigate to={BaseUrl.Login} replace />;
+  return <Navigate to={AuthUrl.Login} replace />;
 };
 
 export default PrivateRoute;

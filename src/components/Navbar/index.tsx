@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useState } from "react";
 import { useAuth } from "@/providers/AuthenticationProvider";
 import { Link } from "react-router-dom";
-import BaseUrl from "@/consts/baseUrl";
+import { AuthUrl } from "@/consts/baseUrl";
 import Sidebar from "../Sidebar";
 import ThemeToggle from "../ThemeToggle";
 
@@ -54,7 +54,7 @@ export default function Navbar() {
             {[
               {
                 label: "Change password",
-                href: BaseUrl.ChangePassword,
+                href: AuthUrl.ChangePassword,
                 function: () => {
                   setPopover(false);
                 },

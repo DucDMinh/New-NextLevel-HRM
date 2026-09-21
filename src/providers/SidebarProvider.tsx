@@ -7,7 +7,7 @@ interface SidebarContextI {
 
 const SidebarContext = createContext<SidebarContextI>({
   isOpen: false,
-  toggle: () => {},
+  toggle: () => { },
 });
 
 export const useSidebarHandler = () => useContext(SidebarContext);
@@ -25,7 +25,6 @@ const SidebarProvider = ({ children }: { children: any }) => {
     toggle,
   };
 
-  //! Render
   return (
     <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
   );

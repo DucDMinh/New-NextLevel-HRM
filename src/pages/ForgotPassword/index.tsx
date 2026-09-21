@@ -3,7 +3,7 @@ import InputField from "@/components/customFieldsFormik/InputField";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
-import BaseUrl from "@/consts/baseUrl";
+import { AuthUrl } from "@/consts/baseUrl";
 import { sleepTime } from "@/helpers/common";
 import { useAuth } from "@/providers/AuthenticationProvider";
 import { Form, Formik } from "formik";
@@ -17,7 +17,7 @@ const ForgotPassword = () => {
 
   //! Render
   if (isLogged) {
-    return <Navigate to={BaseUrl.Homepage} />;
+    return <Navigate to={'/'} />;
   }
 
   return (
@@ -76,7 +76,7 @@ const ForgotPassword = () => {
 
                   <p className="text-center text-sm text-muted-foreground">
                     You have an account?{" "}
-                    <Link to={BaseUrl.Login} className="is-link">
+                    <Link to={AuthUrl.Login} className="is-link">
                       Log in
                     </Link>
                   </p>

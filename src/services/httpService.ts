@@ -4,13 +4,14 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 export const TOKEN_KEY = "token";
 export const USER_KEY = "user";
 
+
 class Services {
   axios: AxiosInstance;
 
   constructor() {
     this.axios = axios;
+    this.axios.defaults.baseURL = import.meta.env.BASE_URL
     this.axios.defaults.withCredentials = false;
-
     //! Interceptor request
     this.axios.interceptors.request.use(
       function (config) {
