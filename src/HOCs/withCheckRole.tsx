@@ -11,7 +11,7 @@ const withCheckRole = (
 ) => {
   return () => {
     const { user } = useAuth();
-    const role = user?.roles?.[0] || PERMISSION_ENUM.USER;
+    const role = user?.role || PERMISSION_ENUM.USER;
     const havePermission =
       permission?.includes(role) || permission?.includes(PERMISSION_ENUM.PUBLIC);
 

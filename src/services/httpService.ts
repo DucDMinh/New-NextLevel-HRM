@@ -1,4 +1,4 @@
-import { UserInfo } from "@/interfaces/user";
+import { User } from "@/interfaces/common";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export const TOKEN_KEY = "token";
@@ -10,10 +10,13 @@ class Services {
 
   constructor() {
     this.axios = axios;
-    this.axios.defaults.baseURL = import.meta.env.BASE_URL
+    this.axios.defaults.baseURL = 'https://lesson-starter-1.onrender.com'
     this.axios.defaults.withCredentials = false;
     this.axios.interceptors.request.use(
       function (config) {
+        if (config.headers) {
+          config.headers.Authorization = `Bearer ${localStorage.getItem(TOKEN_KEY)}`;
+        }
         return config;
       },
       function (error) {
@@ -22,10 +25,15 @@ class Services {
     );
 
     this.axios.interceptors.response.use(
-      function (config) {
-        return config;
+      (response) => {
+        return response;
       },
-      function (error) {
+      (error) => {
+        const { status } = error?.response || {};
+        if (status === 401) {
+          window.localStorage.clear();
+          window.location.reload();
+        }
         return Promise.reject(error);
       }
     );
@@ -91,13 +99,13 @@ class Services {
     localStorage.removeItem(USER_KEY);
   }
 
-  saveUserStorage(user: UserInfo) {
+  saveUserStorage(user: User) {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   getUserStorage() {
     if (localStorage.getItem(USER_KEY)) {
-      return JSON.parse(localStorage?.getItem(USER_KEY) || "") as UserInfo;
+      return JSON.parse(localStorage?.getItem(USER_KEY) || "") as User;
     }
     return null;
   }

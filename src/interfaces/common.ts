@@ -78,15 +78,11 @@ export interface ResponsePagingCommon<T> {
 }
 
 export interface User {
-  sub: string;
-  name: string;
-  email: string;
+  id: string;
+  username: string;
   role: string;
-  iss: string;
-  aud: string;
-  iat: number;
-  exp: number;
-  amr: string[];
+  token: string;
+  fullName: string
 }
 
 export type SetOptionsValue = React.Dispatch<

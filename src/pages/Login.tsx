@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { AuthUrl } from "@/consts/baseUrl";
-import { sleepTime } from "@/helpers/common";
 import { useAuth } from "@/providers/AuthenticationProvider";
 import { Form, Formik } from "formik";
 import { useTranslation } from "react-i18next";
@@ -19,7 +18,7 @@ const Login = () => {
   const { login, isLogged } = useAuth();
   //! Render
   if (isLogged) {
-    return <Navigate to={'/'} />;
+    return <Navigate to={'/'} replace />;
   }
 
   return (
@@ -37,8 +36,7 @@ const Login = () => {
           try {
             setSubmitting(true);
             const { username, password } = values;
-            await sleepTime(1000);
-            login({ username, password });
+            await login({ username, password });
           } catch (error) {
             toast({
               variant: "destructive",

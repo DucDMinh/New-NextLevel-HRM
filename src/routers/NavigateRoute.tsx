@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom"
 
 const NavigateRoute = ({ variant, children }: { variant: LayoutVariant; children: React.ReactNode }) => {
     const { user } = useAuth();
-    const isAdmin = !!user?.roles.includes("admin");
+    const isAdmin = user?.role == "admin";
     const userArea: LayoutVariant = isAdmin ? "admin" : "client";
 
     if (variant !== userArea) {
