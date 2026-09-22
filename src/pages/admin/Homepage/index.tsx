@@ -1,4 +1,3 @@
-import ExampleComponents from "@/components/Examples/ExampleComponents";
 import PageWrapper from "@/components/PageWrapper";
 
 const Homepage = () => {
@@ -11,7 +10,6 @@ const Homepage = () => {
   return (
     <PageWrapper>
       <div className="component:Homepage">
-        <ExampleComponents />
       </div>
     </PageWrapper>
   );

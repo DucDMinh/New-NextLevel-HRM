@@ -12,7 +12,6 @@ class Services {
     this.axios = axios;
     this.axios.defaults.baseURL = import.meta.env.BASE_URL
     this.axios.defaults.withCredentials = false;
-    //! Interceptor request
     this.axios.interceptors.request.use(
       function (config) {
         return config;
@@ -22,7 +21,6 @@ class Services {
       }
     );
 
-    //! Interceptor response
     this.axios.interceptors.response.use(
       function (config) {
         return config;
@@ -37,7 +35,6 @@ class Services {
     this.axios.interceptors.request.use(
       function (config) {
         if (config.headers) {
-          // Do something before request is sent
           config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
@@ -59,7 +56,6 @@ class Services {
           window.localStorage.clear();
           window.location.reload();
         }
-
         return Promise.reject(error);
       }
     );
@@ -103,7 +99,6 @@ class Services {
     if (localStorage.getItem(USER_KEY)) {
       return JSON.parse(localStorage?.getItem(USER_KEY) || "") as UserInfo;
     }
-
     return null;
   }
 }

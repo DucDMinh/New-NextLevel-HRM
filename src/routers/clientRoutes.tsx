@@ -3,9 +3,9 @@ import type { RouteObject } from "react-router-dom";
 import { EmpUrl } from "@/consts/baseUrl";
 import ProtectedLayout from "./ProtectedLayout";
 
-const Homepage = lazy(() => import("@/pages/Homepage"));
+const Homepage = lazy(() => import("@/pages/client/HomePage"));
 
-const empRoutes: RouteObject = {
+const clientRoutes: RouteObject = {
   path: EmpUrl.Homepage,
   element: <ProtectedLayout variant="client" />,
   children: [
@@ -16,4 +16,4 @@ const empRoutes: RouteObject = {
   ],
 };
 
-export default empRoutes;
+export default clientRoutes;

@@ -17,7 +17,6 @@ const Login = () => {
   const { t } = useTranslation("shared");
   const { toast } = useToast();
   const { login, isLogged } = useAuth();
-
   //! Render
   if (isLogged) {
     return <Navigate to={'/'} />;

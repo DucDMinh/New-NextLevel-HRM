@@ -5,6 +5,7 @@ import PrivateRoute from "@/components/PrivateRoute";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Loading from "@/components/ui/loading";
 import { LayoutVariant } from "@/interfaces/sidebar";
+import NavigateRoute from "./NavigateRoute";
 
 
 const ErrorFallback = ({ error, resetErrorBoundary }: any) => {
@@ -23,9 +24,11 @@ const ProtectedLayout = ({ variant }: { variant: LayoutVariant }) => {
     <Suspense fallback={<div className="p-2"><Loading /></div>}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <PrivateRoute>
-          <DefaultLayout variant={variant}>
-            <Outlet />
-          </DefaultLayout>
+          <NavigateRoute variant={variant}>
+            <DefaultLayout variant={variant}>
+              <Outlet />
+            </DefaultLayout>
+          </NavigateRoute>
         </PrivateRoute>
       </ErrorBoundary>
     </Suspense>
