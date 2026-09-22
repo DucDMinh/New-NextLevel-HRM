@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 import { useSidebarHandler } from "@/providers/SidebarProvider";
 import { Link, useLocation } from "react-router-dom";
-import AdminItem from "./adminItem";
+import { SidebarItem } from "@/interfaces/sidebar";
 
-const Sidebar = ({ forMobile }: { forMobile?: boolean }) => {
+const Sidebar = ({ forMobile, items }: { forMobile?: boolean, items: SidebarItem[] }) => {
   const location = useLocation();
   const { isOpen } = useSidebarHandler();
 
@@ -25,7 +25,7 @@ const Sidebar = ({ forMobile }: { forMobile?: boolean }) => {
 
         <div className="side-bar__menu mt-8">
           <h6 className="mb-2 px-3 text-sm text-muted-foreground">General</h6>
-          {AdminItem.map((el) => {
+          {items.map((el) => {
             return (
               <Link
                 key={el.label}

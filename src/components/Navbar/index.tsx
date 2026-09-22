@@ -8,8 +8,9 @@ import { Link } from "react-router-dom";
 import { AuthUrl } from "@/consts/baseUrl";
 import Sidebar from "../Sidebar";
 import ThemeToggle from "../ThemeToggle";
+import { SidebarItem } from "@/interfaces/sidebar";
 
-export default function Navbar() {
+export default function Navbar({ items }: { items: SidebarItem[] }) {
   const { logout } = useAuth();
   const { isOpen, toggle } = useSidebarHandler();
 
@@ -26,7 +27,7 @@ export default function Navbar() {
           )}
         </PopoverTrigger>
         <PopoverContent className="mt-[10px] w-auto border-0 p-0">
-          <Sidebar forMobile />
+          <Sidebar forMobile items={items} />
         </PopoverContent>
       </Popover>
 

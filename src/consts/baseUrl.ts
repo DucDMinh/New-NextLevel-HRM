@@ -4,6 +4,7 @@ export const AuthUrl = {
   Logout: "/auth/logout",
   ChangePassword: "/auth/change-password",
   ForgotPassword: "/auth/forgot-password",
+  Error: "*",
 };
 
 export const AdminUrl = {
@@ -12,7 +13,6 @@ export const AdminUrl = {
   Attendance: "/admin/attendances",
   Leave_Request: "/admin/leave-requests",
   Payroll: "/admin/payrolls",
-  Error: "*",
 };
 
 export const EmpUrl = {
@@ -20,5 +20,4 @@ export const EmpUrl = {
   Attendance: "/attendances",
   Leave_Request: "/leave-requests",
   Payroll: "/payrolls",
-  Error: "*",
 };

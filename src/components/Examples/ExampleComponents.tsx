@@ -71,7 +71,7 @@ const ExampleComponents = () => {
           { label: "Female", value: "female" },
         ],
       }}
-      onSubmit={() => {}}
+      onSubmit={() => { }}
       validationSchema={Yup.object().shape({
         username: Yup.string().required("Username is required field!"),
         password: Yup.string().required("Password is required field!"),

@@ -73,7 +73,7 @@ const AuthenticationProvider = ({ children }: { children: any }) => {
             email: "appuser01@testmail.com",
             company: "Company User 01",
             address: "Address User 01",
-            roles: ["user"],
+            roles: ["admin"],
             isFirstTimeLogin: false,
           };
           setToken(mockToken);
