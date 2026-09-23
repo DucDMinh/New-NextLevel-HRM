@@ -23,18 +23,18 @@ import {
 import { useAuth } from "@/providers/AuthenticationProvider";
 import { Employee } from "@/interfaces/employee";
 import DialogEmployeeForm from "./components/DialogEmployeeForm";
-import { MOCK_EMPLOYEES, ROLE_OPTIONS } from "./mockData";
+import { useFetchEmpData } from "@/api/employee";
+import { SkeletonEmployee } from "./components/SkeletonEmployee";
 
-const getRoleLabel = (role: string) =>
-  ROLE_OPTIONS.find((o) => o.value === role)?.label ?? role;
 
 const EmployeePage = () => {
   const { user } = useAuth();
   const [openForm, setOpenForm] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [selected, setSelected] = useState<Employee | null>(null);
+  const { data, isFetching } = useFetchEmpData()
 
-  const employees = MOCK_EMPLOYEES;
+  const employees = data ?? [];
 
   const handleAdd = () => {
     setSelected(null);
@@ -50,10 +50,15 @@ const EmployeePage = () => {
     setSelected(employee);
     setOpenDelete(true);
   };
+  if (isFetching) {
+    return (
+      <SkeletonEmployee />
+    )
+  }
 
   return (
     <PageWrapper>
-      <div className="component:Employee flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">
@@ -95,97 +100,106 @@ const EmployeePage = () => {
                     <TableHead className="w-28 text-right">Thao tác</TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
-                  {employees.map((emp, index) => {
-                    const isSelf = emp.username === user?.username;
-                    return (
-                      <TableRow key={emp.id}>
-                        <TableCell className="text-muted-foreground">
-                          {index + 1}
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-2">
-                            {emp.username}
-                            {isSelf && (
-                              <Badge variant="outline" className="font-normal">
-                                Bạn
-                              </Badge>
-                            )}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex flex-col">
-                            <span>{emp.fullName}</span>
-                            <span className="text-xs text-muted-foreground">
-                              {emp.position}
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">
-                          {emp.email}
-                        </TableCell>
-                        <TableCell>{emp.department}</TableCell>
-                        <TableCell>
-                          <Badge
-                            variant={
-                              emp.role === "manager" ? "default" : "secondary"
-                            }
-                          >
-                            {getRoleLabel(emp.role)}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex justify-end gap-1">
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => handleEdit(emp)}
-                                >
-                                  <CommonIcons.Pencil className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>Sửa</TooltipContent>
-                            </Tooltip>
-
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <span>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="text-destructive hover:text-destructive"
-                                    disabled={isSelf}
-                                    onClick={() => handleDelete(emp)}
-                                  >
-                                    <CommonIcons.Trash2 className="h-4 w-4" />
-                                  </Button>
-                                </span>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                {isSelf
-                                  ? "Không thể xóa tài khoản đang đăng nhập"
-                                  : "Xóa"}
-                              </TooltipContent>
-                            </Tooltip>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-
-                  {employees.length === 0 && (
+                {!employees ?
+                  <TableBody>
                     <TableRow>
-                      <TableCell
-                        colSpan={7}
-                        className="h-32 text-center text-muted-foreground"
-                      >
+                      <TableCell colSpan={7} className="h-32 text-center text-muted-foreground">
                         Chưa có nhân viên nào
                       </TableCell>
                     </TableRow>
-                  )}
-                </TableBody>
+                  </TableBody>
+                  : <TableBody>
+                    {employees.map((emp, index) => {
+                      const isSelf = emp.username === user?.username;
+                      return (
+                        <TableRow key={emp.id}>
+                          <TableCell className="text-muted-foreground">
+                            {index + 1}
+                          </TableCell>
+                          <TableCell className="font-medium">
+                            <div className="flex items-center gap-2">
+                              {emp.username}
+                              {isSelf && (
+                                <Badge variant="outline" className="font-normal">
+                                  Bạn
+                                </Badge>
+                              )}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex flex-col">
+                              <span>{emp.fullName}</span>
+                              <span className="text-xs text-muted-foreground">
+                                {emp.position}
+                              </span>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-muted-foreground">
+                            {emp.email}
+                          </TableCell>
+                          <TableCell>{emp.department}</TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={
+                                emp.role === "admin" ? "default" : "secondary"
+                              }
+                            >
+                              {emp.role}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex justify-end gap-1">
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => handleEdit(emp)}
+                                  >
+                                    <CommonIcons.Pencil className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Sửa</TooltipContent>
+                              </Tooltip>
+
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      className="text-destructive hover:text-destructive"
+                                      disabled={isSelf}
+                                      onClick={() => handleDelete(emp)}
+                                    >
+                                      <CommonIcons.Trash2 className="h-4 w-4" />
+                                    </Button>
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  {isSelf
+                                    ? "Không thể xóa tài khoản đang đăng nhập"
+                                    : "Xóa"}
+                                </TooltipContent>
+                              </Tooltip>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+
+                    {employees.length === 0 && (
+                      <TableRow>
+                        <TableCell
+                          colSpan={7}
+                          className="h-32 text-center text-muted-foreground"
+                        >
+                          Chưa có nhân viên nào
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                }
               </Table>
             </TooltipProvider>
           </CardContent>

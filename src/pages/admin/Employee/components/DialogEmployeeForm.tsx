@@ -14,17 +14,20 @@ import InputField from "@/components/customFieldsFormik/InputField";
 import SelectField from "@/components/customFieldsFormik/SelectField";
 import DateTimePickerField from "@/components/customFieldsFormik/DateTimePickerField";
 import { DialogI } from "@/interfaces/common";
-import { Employee, EmployeeFormValues } from "@/interfaces/employee";
+import { Employee, EmployeeFormValues, getEmployeeSchema } from "@/interfaces/employee";
 import { Form, Formik } from "formik";
-import { DEPARTMENT_OPTIONS, ROLE_OPTIONS } from "../mockData";
+import { useMemo } from "react";
+import { DEPARTMENT_OPTIONS, ROLE_OPTIONS } from "../EmployeeOption";
 
 interface DialogEmployeeFormProps extends DialogI<EmployeeFormValues> {
   employee?: Employee | null;
 }
 
 const DialogEmployeeForm = (props: DialogEmployeeFormProps) => {
+
   const { isOpen, toggle, onSubmit, employee } = props;
   const isEdit = !!employee;
+  const employeeSchema = useMemo(() => getEmployeeSchema(isEdit), [isEdit]);
 
   const initialValues: EmployeeFormValues = {
     username: employee?.username ?? "",
@@ -39,10 +42,10 @@ const DialogEmployeeForm = (props: DialogEmployeeFormProps) => {
     baseSalary: employee?.baseSalary ?? ("" as unknown as number),
   };
   return (
-    <Dialog open={isOpen} onOpenChange={toggle} modal>
+    <Dialog open={isOpen} onOpenChange={toggle} modal >
       <DialogPortal>
         <DialogOverlay />
-        <DialogContent className="max-w-full md:max-w-[760px]">
+        <DialogContent className="max-w-full md:max-w-[750px]">
           <DialogHeader>
             <DialogTitle>
               {isEdit ? "Sửa thông tin nhân viên" : "Thêm nhân viên mới"}
@@ -57,6 +60,9 @@ const DialogEmployeeForm = (props: DialogEmployeeFormProps) => {
           <Formik
             enableReinitialize
             initialValues={initialValues}
+            validationSchema={employeeSchema}
+            validateOnBlur={false}
+            validateOnChange={false}
             onSubmit={onSubmit || (() => { })}
           >
             {({ isSubmitting }) => (
@@ -119,6 +125,7 @@ const DialogEmployeeForm = (props: DialogEmployeeFormProps) => {
                       name="joinDate"
                       label="Ngày vào làm"
                       hideTimePicker
+                      required
                     />
                   </div>
                   <p className="mb-3 text-sm font-semibold text-muted-foreground">

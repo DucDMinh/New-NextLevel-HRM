@@ -167,7 +167,7 @@ const DateTimePickerField = (
         </Button>
       </div>
 
-      {isString(msgError) && <span className="invalid-text">{msgError}</span>}
+      <span className="invalid-text">{isString(msgError) ? msgError : ""}</span>
     </div>
   );
 };

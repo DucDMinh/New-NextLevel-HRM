@@ -304,7 +304,7 @@ const SelectField = (props: SelectFieldProps & AdditionalFormikProps) => {
         </PopoverContent>
       </Popover>
 
-      {isString(msgError) && <span className="invalid-text">{msgError}</span>}
+      <span className="invalid-text">{isString(msgError) ? msgError : ""}</span>
     </div>
   );
 };

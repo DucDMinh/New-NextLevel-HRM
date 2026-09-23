@@ -89,7 +89,8 @@
   }
 
   .invalid-text {
-    @apply text-xs text-red-500;
+    /* block + min-h để luôn chiếm chỗ, tránh field bị đẩy dịch khi lỗi xuất hiện/biến mất */
+    @apply block min-h-[1rem] text-xs leading-4 text-red-500;
   }
 
   .required::after {

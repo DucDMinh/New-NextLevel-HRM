@@ -88,10 +88,10 @@ const InputField = (props: InputFieldProps & AdditionalFormikProps) => {
           </button>
         )}
       </div>
-      {helperText && (
+      {helperText ? (
         <span className="text-[13px] text-muted-foreground">{helperText}</span>
-      )}
-      {isString(msgError) && <span className="invalid-text">{msgError}</span>}
+      ) :
+        <span className="invalid-text">{isString(msgError) ? msgError : ""}</span>}
     </div>
   );
 };
