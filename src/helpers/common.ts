@@ -73,4 +73,14 @@ export const isPromise = (value: any) => {
   return Boolean(value && typeof value.then === "function");
 };
 
-export const addConfigsToRequest = () => {};
+export const addConfigsToRequest = () => { };
+export const getWorkedDuration = (checkIn: string, checkOut: string | null) => {
+  if (!checkOut) return "—";
+  const diffMs = moment(checkOut).diff(moment(checkIn));
+  if (diffMs <= 0) return "—";
+  const duration = moment.duration(diffMs);
+  const hours = Math.floor(duration.asHours());
+  const minutes = duration.minutes();
+  return `${hours}h ${minutes}m`;
+};
+

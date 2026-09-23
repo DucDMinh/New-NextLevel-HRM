@@ -4,7 +4,7 @@ import { Boxes, ClipboardCheck, LayoutDashboard, List, Users } from 'lucide-reac
 
 export const ClientItems: SidebarItem[] = [
     { label: "Dashboard", href: "/", icon: LayoutDashboard },
-    { label: "Task", href: "/task", icon: ClipboardCheck },
+    { label: "Attendance", href: "/attendances", icon: ClipboardCheck },
     { label: "Todos", href: "/todos", icon: List },
     { label: "Apps", href: "/apps", icon: Boxes },
     { label: "Users", href: "/users", icon: Users },

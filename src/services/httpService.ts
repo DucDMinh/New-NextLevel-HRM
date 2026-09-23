@@ -30,7 +30,8 @@ class Services {
       },
       (error) => {
         const { status } = error?.response || {};
-        if (status === 401) {
+        const url: string = error?.config?.url || "";
+        if (status === 401 && !url.includes("/login")) {
           window.localStorage.clear();
           window.location.reload();
         }
@@ -53,27 +54,11 @@ class Services {
     );
   }
 
-  setupInterceptors() {
-    this.axios.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      (error) => {
-        const { status } = error?.response || {};
-        if (status === 401) {
-          window.localStorage.clear();
-          window.location.reload();
-        }
-        return Promise.reject(error);
-      }
-    );
-  }
-
   get(url: string, config?: AxiosRequestConfig) {
     return this.axios.get(url, config);
   }
 
-  post(url: string, data: any, config?: AxiosRequestConfig) {
+  post(url: string, data?: any, config?: AxiosRequestConfig) {
     return this.axios.post(url, data, config);
   }
 

@@ -6,13 +6,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { SkeletonAttendance } from "./component/SkeletonAttendance";
 import { AttendanceTableBody } from "./component/AttendanceTableBody";
 import { AttendanceHeader } from "./component/AttendanceHeader";
 import { SearchInput } from "./component/SearchInput";
 import { EmployeeFilterSelect } from "./component/EmployeeFilterSelect";
 import { StatusFilterSelect } from "./component/StatusFilterSelect";
 import { useAttendance } from "./hook/useAttendance";
+import { getWorkedDuration } from "@/helpers/common";
+import { SkeletonPage } from "@/components/SkeletonPage";
 
 const AttendancePage = () => {
     const {
@@ -21,16 +22,14 @@ const AttendancePage = () => {
         statusFilter, setStatusFilter,
         employees, employeeMap,
         filteredAttendances,
-        getWorkedDuration,
         isFetching
     } = useAttendance()
 
     if (isFetching) {
         return (
-            <SkeletonAttendance />
+            <SkeletonPage />
         );
     }
-
     return (
         <PageWrapper>
             <div className="component:Attendance flex flex-col gap-6">
@@ -38,23 +37,19 @@ const AttendancePage = () => {
 
                 <div className="flex flex-wrap items-center gap-3">
                     <SearchInput value={search} onChange={setSearch} />
-
                     <EmployeeFilterSelect
                         value={employeeFilter}
                         onChange={setEmployeeFilter}
                         employees={employees}
                     />
-
                     <StatusFilterSelect
                         value={statusFilter}
                         onChange={setStatusFilter}
                     />
-
                     <span className="ml-auto text-sm text-muted-foreground">
                         Tổng: <b className="text-foreground">{filteredAttendances.length}</b> bản ghi
                     </span>
                 </div>
-
                 <Card>
                     <CardContent className="p-0">
                         <Table>

@@ -8,11 +8,11 @@ import {
   TooltipProvider,
 } from "@/components/ui/tooltip";
 import DialogEmployeeForm from "./components/DialogEmployeeForm";
-import { SkeletonEmployee } from "./components/SkeletonEmployee";
 import { EmployeeTableBody } from "./components/EmployeeTableBody";
 import { EmployeeTableHeader } from "./components/EmployeeTableHeader";
 import { EmployeeHeader } from "./components/EmployeeHeader";
 import { useEmployee } from "./hook/useEmployee";
+import { SkeletonPage } from "@/components/SkeletonPage";
 
 
 const EmployeePage = () => {
@@ -28,7 +28,7 @@ const EmployeePage = () => {
 
   if (isFetching) {
     return (
-      <SkeletonEmployee />
+      <SkeletonPage />
     )
   }
 

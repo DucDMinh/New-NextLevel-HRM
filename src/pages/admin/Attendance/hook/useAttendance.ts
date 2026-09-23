@@ -2,7 +2,6 @@ import { useFetchAttendanceData } from "@/api/attendance";
 import { useFetchEmpData } from "@/api/employee";
 import { STATUS_ALL, STATUS_DONE, STATUS_WORKING } from "@/consts/common";
 import { Employee } from "@/interfaces/employee";
-import moment from "moment";
 import { useMemo, useState } from "react";
 
 export const useAttendance = () => {
@@ -22,7 +21,7 @@ export const useAttendance = () => {
 
     const filteredAttendances = useMemo(() => {
         const keyword = search.trim().toLowerCase();
-        return attendances.reverse().filter((att) => {
+        return [...attendances].reverse().filter((att) => {
             const employee = employeeMap.get(att.employeeId);
             const isWorking = !att.checkOut;
 
@@ -49,15 +48,7 @@ export const useAttendance = () => {
         });
     }, [attendances, employeeMap, search, employeeFilter, statusFilter]);
 
-    const getWorkedDuration = (checkIn: string, checkOut: string | null) => {
-        if (!checkOut) return "—";
-        const diffMs = moment(checkOut).diff(moment(checkIn));
-        if (diffMs <= 0) return "—";
-        const duration = moment.duration(diffMs);
-        const hours = Math.floor(duration.asHours());
-        const minutes = duration.minutes();
-        return `${hours}h ${minutes}m`;
-    };
+
 
     const isFetching = isFetchingAttendance;
     return {
@@ -66,7 +57,6 @@ export const useAttendance = () => {
         statusFilter, setStatusFilter,
         employees, employeeMap,
         filteredAttendances,
-        getWorkedDuration,
         isFetching
     }
 }

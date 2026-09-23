@@ -10,7 +10,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
-export const SkeletonEmployee = () => {
+export const SkeletonPage = () => {
     return (
         <PageWrapper>
             <div className="flex flex-col gap-6">
