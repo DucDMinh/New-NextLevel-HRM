@@ -17,12 +17,14 @@ export const useLeaveRequest = () => {
     const [search, setSearch] = useState("");
     const [employeeFilter, setEmployeeFilter] = useState<string>(STATUS_ALL);
     const [statusFilter, setStatusFilter] = useState<string>(STATUS_ALL);
-
-    const leaveRequests = useMemo(() => data ?? [], [data])
+    const sortedLeaveRequests = useMemo(
+        () => (data ? [...data].reverse() : []),
+        [data]
+    );
 
     const filteredLeaveRequests = useMemo(() => {
         const keyword = search.trim().toLowerCase();
-        return [...leaveRequests].reverse().filter((lr) => {
+        return sortedLeaveRequests.filter((lr) => {
             const employee = employeeMap.get(lr.employeeId);
             if (statusFilter !== STATUS_ALL && lr.status !== statusFilter) return false;
             if (employeeFilter !== STATUS_ALL && `${lr.employeeId}` !== employeeFilter) return false;
@@ -36,7 +38,7 @@ export const useLeaveRequest = () => {
 
             return true;
         });
-    }, [leaveRequests, employeeMap, search, employeeFilter, statusFilter]);
+    }, [sortedLeaveRequests, employeeMap, search, employeeFilter, statusFilter]);
     const updateStatus = useUpdateLeaveRequest()
     const handleAction = async (id: string, action: LeaveRequestAction) => {
         await updateStatus.mutateAsync({ id, status: action });

@@ -27,7 +27,6 @@ const LeaveRequestPage = () => {
         <PageWrapper>
             <div className="component:LeaveRequest flex flex-col gap-6">
                 <LeaveRequestHeader />
-
                 <div className="flex flex-wrap items-center gap-3">
                     <SearchInput
                         value={search}
@@ -50,9 +49,8 @@ const LeaveRequestPage = () => {
                         Tổng: <b className="text-foreground">{filteredLeaveRequests.length}</b> đơn
                     </span>
                 </div>
-
                 <Card>
-                    <CardContent className="p-0">
+                    <CardContent>
                         <Table>
                             <TableHeader>
                                 <TableRow>
