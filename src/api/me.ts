@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
-import { api, queryKeys } from "./global"
+import { api } from "./global"
 import { User } from "@/interfaces/common"
 import httpService from "@/services/httpService"
+import { queryKeys } from "@/consts/queriesKeys"
 
 export const useMe = (enabled = true) => {
     return useQuery({
