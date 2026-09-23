@@ -123,17 +123,16 @@ const SelectField = (props: SelectFieldProps & AdditionalFormikProps) => {
       afterOnChange && afterOnChange(newValue);
       // Don't close popover in multi-select mode
     } else {
-      // Single select mode - always store SelectOption object
       const isSameValue =
         value &&
-        typeof value === "object" &&
-        "label" in value &&
-        "value" in value
+          typeof value === "object" &&
+          "label" in value &&
+          "value" in value
           ? `${(value as SelectOption).value}` === `${option.value}`
           : `${value}` === `${option.value}`;
 
       const result = isSameValue ? null : option;
-      setFieldValue(name, result);
+      setFieldValue(name, result ? result.value : null);
       afterOnChange && afterOnChange(isSameValue ? null : option);
       setOpen(false);
     }
@@ -274,14 +273,14 @@ const SelectField = (props: SelectFieldProps & AdditionalFormikProps) => {
               {options.map((option) => {
                 const isSelected = isMulti
                   ? selectedOptions.some(
-                      (opt) => `${opt.value}` === `${option.value}`
-                    )
+                    (opt) => `${opt.value}` === `${option.value}`
+                  )
                   : value &&
                     typeof value === "object" &&
                     "label" in value &&
                     "value" in value
-                  ? `${(value as SelectOption).value}` === `${option.value}`
-                  : `${value}` === `${option.value}`;
+                    ? `${(value as SelectOption).value}` === `${option.value}`
+                    : `${value}` === `${option.value}`;
 
                 return (
                   <CommandItem

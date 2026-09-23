@@ -28,7 +28,6 @@ const DialogEmployeeForm = (props: DialogEmployeeFormProps) => {
   const { isOpen, toggle, onSubmit, employee } = props;
   const isEdit = !!employee;
   const employeeSchema = useMemo(() => getEmployeeSchema(isEdit), [isEdit]);
-
   const initialValues: EmployeeFormValues = {
     username: employee?.username ?? "",
     password: "",
@@ -41,6 +40,7 @@ const DialogEmployeeForm = (props: DialogEmployeeFormProps) => {
     joinDate: employee?.joinDate ?? "",
     baseSalary: employee?.baseSalary ?? ("" as unknown as number),
   };
+
   return (
     <Dialog open={isOpen} onOpenChange={toggle} modal >
       <DialogPortal>

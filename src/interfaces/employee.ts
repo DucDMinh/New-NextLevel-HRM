@@ -17,6 +17,8 @@ export type EmployeeFormValues = Omit<Employee, "id"> & {
   password: string;
 };
 
+export type UpdateEmployeePayload = Pick<Employee, "id"> & EmployeeFormValues;
+
 export const getEmployeeSchema = (isEdit: boolean) =>
   yup.object({
     username: yup.string()

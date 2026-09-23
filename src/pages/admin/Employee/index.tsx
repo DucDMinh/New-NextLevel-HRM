@@ -21,10 +21,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useAuth } from "@/providers/AuthenticationProvider";
-import { Employee } from "@/interfaces/employee";
+import { Employee, EmployeeFormValues } from "@/interfaces/employee";
 import DialogEmployeeForm from "./components/DialogEmployeeForm";
-import { useFetchEmpData } from "@/api/employee";
+import { useCreateEmp, useDeleteEmp, useFetchEmpData, useUpdateEmp } from "@/api/employee";
 import { SkeletonEmployee } from "./components/SkeletonEmployee";
+import { toast } from "react-toastify";
 
 
 const EmployeePage = () => {
@@ -33,22 +34,28 @@ const EmployeePage = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [selected, setSelected] = useState<Employee | null>(null);
   const { data, isFetching } = useFetchEmpData()
-
   const employees = data ?? [];
+  const createEmp = useCreateEmp();
+  const updateEmp = useUpdateEmp();
+  const deleteEmp = useDeleteEmp();
 
-  const handleAdd = () => {
-    setSelected(null);
-    setOpenForm(true);
+  const handleSubmitEmployee = async (values: EmployeeFormValues) => {
+    if (selected) {
+      await updateEmp.mutateAsync({ id: selected.id, ...values });
+    } else {
+      await createEmp.mutateAsync(values);
+    }
+    setOpenForm(false);
   };
 
-  const handleEdit = (employee: Employee) => {
-    setSelected(employee);
-    setOpenForm(true);
-  };
-
-  const handleDelete = (employee: Employee) => {
-    setSelected(employee);
-    setOpenDelete(true);
+  const handleDelete = async () => {
+    if (!selected) {
+      toast("No emp")
+      return
+    }
+    await deleteEmp.mutateAsync(selected.id)
+    setSelected(null)
+    setOpenDelete(false)
   };
   if (isFetching) {
     return (
@@ -68,7 +75,7 @@ const EmployeePage = () => {
               Danh sách toàn bộ nhân viên trong công ty
             </p>
           </div>
-          <Button onClick={handleAdd}>
+          <Button onClick={() => setOpenForm(true)}>
             <CommonIcons.Plus className="icon" /> Thêm nhân viên
           </Button>
         </div>
@@ -154,7 +161,10 @@ const EmployeePage = () => {
                                   <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={() => handleEdit(emp)}
+                                    onClick={() => {
+                                      setSelected(emp)
+                                      setOpenForm(true)
+                                    }}
                                   >
                                     <CommonIcons.Pencil className="h-4 w-4" />
                                   </Button>
@@ -170,7 +180,10 @@ const EmployeePage = () => {
                                       size="icon"
                                       className="text-destructive hover:text-destructive"
                                       disabled={isSelf}
-                                      onClick={() => handleDelete(emp)}
+                                      onClick={() => {
+                                        setSelected(emp);
+                                        setOpenDelete(true);
+                                      }}
                                     >
                                       <CommonIcons.Trash2 className="h-4 w-4" />
                                     </Button>
@@ -210,7 +223,7 @@ const EmployeePage = () => {
         isOpen={openForm}
         toggle={() => setOpenForm((prev) => !prev)}
         employee={selected}
-        onSubmit={() => setOpenForm(false)}
+        onSubmit={handleSubmitEmployee}
       />
       <DialogConfirm
         isOpen={openDelete}
@@ -223,7 +236,7 @@ const EmployeePage = () => {
             {selected?.username})? Hành động này không thể hoàn tác.
           </>
         }
-        onSubmit={() => setOpenDelete(false)}
+        onSubmit={handleDelete}
       />
     </PageWrapper>
   );
