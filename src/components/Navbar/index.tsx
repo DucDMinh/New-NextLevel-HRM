@@ -11,7 +11,7 @@ import ThemeToggle from "../ThemeToggle";
 import { SidebarItem } from "@/interfaces/sidebar";
 
 export default function Navbar({ items }: { items: SidebarItem[] }) {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const { isOpen, toggle } = useSidebarHandler();
 
   const [openPopover, setPopover] = useState(false);
@@ -43,10 +43,10 @@ export default function Navbar({ items }: { items: SidebarItem[] }) {
               </Avatar>
               <div>
                 <p className="mb-1 text-sm font-medium leading-none">
-                  donezombie
+                  {user?.fullName}
                 </p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  donezombie@gmail.com
+                  {user?.role}
                 </p>
               </div>
             </div>

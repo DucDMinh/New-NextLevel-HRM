@@ -29,7 +29,6 @@ const DefaultLayout = (props: DefaultLayoutProps) => {
       <div className="layout-wrapper w-full p-3 md:w-[calc(100%-var(--sidebar-width))] md:pl-10">
         <Navbar items={config.items} />
         <main className="flex w-full">{props.children}</main>
-        <Footer />
       </div>
     </div>
   );

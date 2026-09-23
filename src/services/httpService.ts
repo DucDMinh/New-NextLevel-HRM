@@ -69,6 +69,9 @@ class Services {
   put(url: string, data: any, config?: AxiosRequestConfig) {
     return this.axios.put(url, data, config);
   }
+  patch(url: string, data: any, config?: AxiosRequestConfig) {
+    return this.axios.patch(url, data, config);
+  }
 
   saveTokenStorage(token: string) {
     localStorage.setItem(TOKEN_KEY, token);

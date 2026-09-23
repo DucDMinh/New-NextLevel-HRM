@@ -6,53 +6,51 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { AttendanceTableBody } from "./component/AttendanceTableBody";
-import { AttendanceHeader } from "./component/AttendanceHeader";
 import { SearchInput } from "@/components/filters/SearchInput";
 import { EmployeeFilterSelect } from "@/components/filters/EmployeeFilterSelect";
-import { StatusFilterSelect } from "./component/StatusFilterSelect";
-import { useAttendance } from "./hook/useAttendance";
-import { getWorkedDuration } from "@/helpers/common";
-import { SkeletonPage } from "@/components/SkeletonPage";
+import { LeaveRequestHeader } from "./component/LeaveRequestHeader";
+import { LeaveStatusFilterSelect } from "./component/LeaveStatusFilterSelect";
+import { LeaveRequestTableBody } from "./component/LeaveRequestTableBody";
+import { useLeaveRequest } from "./hook/useLeaveRequest";
 
-const AttendancePage = () => {
+const LeaveRequestPage = () => {
     const {
         search, setSearch,
         employeeFilter, setEmployeeFilter,
         statusFilter, setStatusFilter,
         employees, employeeMap,
-        filteredAttendances,
-        isFetching
-    } = useAttendance()
+        filteredLeaveRequests,
+        handleAction, updatingId
+    } = useLeaveRequest();
 
-    if (isFetching) {
-        return (
-            <SkeletonPage />
-        );
-    }
     return (
         <PageWrapper>
-            <div className="component:Attendance flex flex-col gap-6">
-                <AttendanceHeader />
+            <div className="component:LeaveRequest flex flex-col gap-6">
+                <LeaveRequestHeader />
+
                 <div className="flex flex-wrap items-center gap-3">
                     <SearchInput
                         value={search}
                         onChange={setSearch}
-                        placeholder="Tìm theo tên, tên đăng nhập, ngày..."
+                        placeholder="Tìm theo tên, tên đăng nhập, lý do..."
                     />
+
                     <EmployeeFilterSelect
                         value={employeeFilter}
                         onChange={setEmployeeFilter}
                         employees={employees}
                     />
-                    <StatusFilterSelect
+
+                    <LeaveStatusFilterSelect
                         value={statusFilter}
                         onChange={setStatusFilter}
                     />
+
                     <span className="ml-auto text-sm text-muted-foreground">
-                        Tổng: <b className="text-foreground">{filteredAttendances.length}</b> bản ghi
+                        Tổng: <b className="text-foreground">{filteredLeaveRequests.length}</b> đơn
                     </span>
                 </div>
+
                 <Card>
                     <CardContent className="p-0">
                         <Table>
@@ -60,17 +58,20 @@ const AttendancePage = () => {
                                 <TableRow>
                                     <TableHead className="w-12">#</TableHead>
                                     <TableHead>Nhân viên</TableHead>
-                                    <TableHead>Ngày</TableHead>
-                                    <TableHead>Giờ vào</TableHead>
-                                    <TableHead>Giờ ra</TableHead>
-                                    <TableHead>Thời gian làm</TableHead>
-                                    <TableHead className="text-right">Trạng thái</TableHead>
+                                    <TableHead>Từ ngày</TableHead>
+                                    <TableHead>Đến ngày</TableHead>
+                                    <TableHead>Số ngày</TableHead>
+                                    <TableHead>Lý do</TableHead>
+                                    <TableHead>Ngày tạo</TableHead>
+                                    <TableHead>Trạng thái</TableHead>
+                                    <TableHead className="text-right">Thao tác</TableHead>
                                 </TableRow>
                             </TableHeader>
-                            <AttendanceTableBody
-                                filteredAttendances={filteredAttendances}
+                            <LeaveRequestTableBody
+                                filteredLeaveRequests={filteredLeaveRequests}
                                 employeeMap={employeeMap}
-                                getWorkedDuration={getWorkedDuration}
+                                handleAction={handleAction}
+                                updatingId={updatingId}
                             />
                         </Table>
                     </CardContent>
@@ -80,4 +81,4 @@ const AttendancePage = () => {
     );
 };
 
-export default AttendancePage;
+export default LeaveRequestPage;

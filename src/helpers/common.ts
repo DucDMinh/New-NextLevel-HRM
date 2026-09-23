@@ -74,6 +74,7 @@ export const isPromise = (value: any) => {
 };
 
 export const addConfigsToRequest = () => { };
+
 export const getWorkedDuration = (checkIn: string, checkOut: string | null) => {
   if (!checkOut) return "—";
   const diffMs = moment(checkOut).diff(moment(checkIn));

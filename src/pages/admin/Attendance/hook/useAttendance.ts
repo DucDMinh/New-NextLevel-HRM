@@ -24,14 +24,11 @@ export const useAttendance = () => {
         return [...attendances].reverse().filter((att) => {
             const employee = employeeMap.get(att.employeeId);
             const isWorking = !att.checkOut;
-
             if (statusFilter === STATUS_WORKING && !isWorking) return false;
             if (statusFilter === STATUS_DONE && isWorking) return false;
-
             if (employeeFilter !== STATUS_ALL && `${att.employeeId}` !== employeeFilter) {
                 return false;
             }
-
             if (keyword) {
                 const haystack = [
                     employee?.fullName,

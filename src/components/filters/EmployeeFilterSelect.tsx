@@ -12,16 +12,18 @@ interface EmployeeFilterSelectProps {
     value: string;
     onChange: (value: string) => void;
     employees: Employee[];
+    className?: string;
 }
 
 export const EmployeeFilterSelect = ({
     value,
     onChange,
     employees,
+    className = "w-full sm:w-52",
 }: EmployeeFilterSelectProps) => {
     return (
         <Select value={value} onValueChange={onChange}>
-            <SelectTrigger className="w-full sm:w-52">
+            <SelectTrigger className={className}>
                 <SelectValue placeholder="Tất cả nhân viên" />
             </SelectTrigger>
             <SelectContent>

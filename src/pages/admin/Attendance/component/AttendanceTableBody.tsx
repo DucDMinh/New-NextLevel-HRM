@@ -33,7 +33,6 @@ export const AttendanceTableBody = ({
             {filteredAttendances.map((att, index) => {
                 const employee = employeeMap.get(att.employeeId);
                 const isWorking = !att.checkOut;
-
                 return (
                     <TableRow key={att.id}>
                         <TableCell className="text-muted-foreground">
