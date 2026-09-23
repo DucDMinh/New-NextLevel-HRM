@@ -4,8 +4,8 @@ import type { RouteObject } from "react-router-dom";
 import { AuthUrl } from "@/consts/baseUrl";
 import Loading from "@/components/ui/loading";
 
-const Login = lazy(() => import("@/pages/Login"));
-const ForgotPassword = lazy(() => import("@/pages/ForgotPassword"));
+const Login = lazy(() => import("@/pages/auth/Login"));
+const ForgotPassword = lazy(() => import("@/pages/auth/ForgotPassword"));
 const Page404 = lazy(() => import("@/pages/Page404"));
 const authRoutes: RouteObject = {
   element: (

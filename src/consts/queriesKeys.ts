@@ -1,5 +1,6 @@
-const queriesKeys = {
-  getTodos: "getTodos",
-};
+export const queryKeys = {
+  employee: 'employee',
+  me: 'me',
+  attendance: 'attendance',
+}
 
-export default queriesKeys;

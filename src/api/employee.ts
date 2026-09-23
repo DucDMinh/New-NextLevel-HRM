@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { api, queryKeys } from "./global"
+import { api } from "./global"
 import httpService from "@/services/httpService"
 import { Employee, EmployeeFormValues, UpdateEmployeePayload } from "@/interfaces/employee"
+import { queryKeys } from "@/consts/queriesKeys"
 
 const empKey = queryKeys.employee
 

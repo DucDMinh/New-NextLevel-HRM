@@ -9,7 +9,7 @@ export const AuthUrl = {
 
 export const AdminUrl = {
   Homepage: "/admin",
-  Employee: "/admin/employee",
+  Employee: "/admin/employees",
   Attendance: "/admin/attendances",
   Leave_Request: "/admin/leave-requests",
   Payroll: "/admin/payrolls",

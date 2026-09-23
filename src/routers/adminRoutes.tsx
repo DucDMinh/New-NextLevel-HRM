@@ -5,6 +5,7 @@ import ProtectedLayout from "./ProtectedLayout";
 
 const Homepage = lazy(() => import("@/pages/admin/Homepage"));
 const Employee = lazy(() => import("@/pages/admin/Employee"));
+const Attendance = lazy(() => import("@/pages/admin/Attendance"))
 
 const adminRoutes: RouteObject = {
   path: AdminUrl.Homepage,
@@ -12,7 +13,7 @@ const adminRoutes: RouteObject = {
   children: [
     { index: true, element: <Homepage /> },
     { path: AdminUrl.Employee, element: <Employee /> },
-    { path: AdminUrl.Attendance, element: <></> },
+    { path: AdminUrl.Attendance, element: <Attendance /> },
     { path: AdminUrl.Leave_Request, element: <></> },
     { path: AdminUrl.Payroll, element: <></> }
   ],

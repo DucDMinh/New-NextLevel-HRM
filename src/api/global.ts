@@ -12,8 +12,3 @@ export const api = async <T,>(call: Promise<AxiosResponse<T>>): Promise<T> => {
         throw error;
     }
 }
-
-export const queryKeys = {
-    employee: 'employee',
-    me: 'me'
-}

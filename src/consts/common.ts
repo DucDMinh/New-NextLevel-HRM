@@ -9,6 +9,9 @@ export enum PERMISSION_ENUM {
   USER = 'user',
   APP_MANAGER = 'appmanager',
 }
+export const STATUS_ALL = "all";
+export const STATUS_WORKING = "working";
+export const STATUS_DONE = "done";
 
 export const PermissionOptions = Object.entries(PERMISSION_ENUM)
   .filter((el) => {
