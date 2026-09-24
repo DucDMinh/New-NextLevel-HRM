@@ -1,10 +1,11 @@
 import { useCreatePayroll, useFetchRecordPayroll, useFetchSummaryPayroll, useUpdatePayroll } from "@/api/payroll"
 import { PayrollAdjustFormValues, PayrollDialogMode, PayrollRecord, PayrollSummary } from "@/interfaces/payroll";
 import { useMemo, useState } from "react"
+import moment from "moment";
 import { toast } from "@/components/ui/use-toast";
 
 export const usePayroll = () => {
-    const [month, setMonth] = useState("2026-09");
+    const [month, setMonth] = useState(() => moment().format("YYYY-MM"));
     const { data: sumData, isLoading } = useFetchSummaryPayroll(month)
     const payrollSummary = useMemo<PayrollSummary[]>(
         () => sumData ?? [],
@@ -49,6 +50,7 @@ export const usePayroll = () => {
                 setOpenDialog(false);
                 break;
             case "finalize":
+            case "refinalize":
                 try {
                     await createPayroll.mutateAsync({
                         adjustment: Number(values.adjustment),

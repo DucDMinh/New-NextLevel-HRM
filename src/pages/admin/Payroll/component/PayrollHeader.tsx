@@ -1,5 +1,5 @@
-import CommonIcons from "@/components/CommonIcons";
-import { Input } from "@/components/ui/input";
+import moment from "moment";
+import { MonthPicker } from "@/components/filters/MonthPicker";
 
 interface PayrollHeaderProps {
     month: string;
@@ -17,15 +17,11 @@ export const PayrollHeader = ({ month, onMonthChange }: PayrollHeaderProps) => {
                     Tổng hợp ngày công, chốt và điều chỉnh lương của toàn bộ nhân viên theo tháng
                 </p>
             </div>
-            <div className="relative w-[180px]">
-                <CommonIcons.CalendarDays className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                    type="month"
-                    className="pl-9"
-                    value={month}
-                    onChange={(e) => onMonthChange(e.target.value)}
-                />
-            </div>
+            <MonthPicker
+                value={month}
+                onChange={onMonthChange}
+                max={moment().format("YYYY-MM")}
+            />
         </div>
     )
 }

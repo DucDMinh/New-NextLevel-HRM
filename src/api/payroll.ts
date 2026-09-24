@@ -29,8 +29,10 @@ export const useCreatePayroll = () => {
             return api<PayrollRecord>(httpService.post('/api/payroll/generate', payload))
         },
         onSuccess: (record) => {
-            queryClient.setQueryData<PayrollRecord[]>([recordPayroll, record.month], (prev) =>
-                prev ? [...prev, record] : [record]
+            queryClient.setQueryData<PayrollRecord[]>([recordPayroll, record.month], (prev = []) =>
+                prev.some((pr) => pr.employeeId === record.employeeId)
+                    ? prev.map((pr) => (pr.employeeId === record.employeeId ? record : pr))
+                    : [...prev, record]
             );
             queryClient.setQueryData<PayrollSummary[]>([summaryPayroll, record.month], (prev) =>
                 prev?.map((pr) =>
