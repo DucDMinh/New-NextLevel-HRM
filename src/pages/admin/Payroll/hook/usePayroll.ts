@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 
 export const usePayroll = () => {
     const [month, setMonth] = useState("2026-09");
-    const { data: sumData } = useFetchSummaryPayroll(month)
+    const { data: sumData, isFetching } = useFetchSummaryPayroll(month)
     const payrollSummary = useMemo<PayrollSummary[]>(
         () => sumData ?? [],
         [sumData]
@@ -54,6 +54,6 @@ export const usePayroll = () => {
         payrollSummary, payrollRecords,
         drafts,
         openDialog, setOpenDialog, dialogMode, selectedPayroll,
-        handleOpenDialog, handleSubmitPayroll,
+        handleOpenDialog, handleSubmitPayroll, isFetching
     }
 }

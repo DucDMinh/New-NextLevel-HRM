@@ -4,6 +4,7 @@ export const queryKeys = {
   attendance: 'attendance',
   leave_request: 'leave_request',
   summaryPayroll: 'summaryPayroll',
-  recordPayroll: 'recordPayroll'
+  recordPayroll: 'recordPayroll',
+  setting: 'setting'
 }
 

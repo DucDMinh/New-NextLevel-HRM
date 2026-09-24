@@ -11,9 +11,7 @@ import DialogEmployeeForm from "./components/DialogEmployeeForm";
 import { EmployeeTableBody } from "./components/EmployeeTableBody";
 import { EmployeeTableHeader } from "./components/EmployeeTableHeader";
 import { EmployeeHeader } from "./components/EmployeeHeader";
-import { useEmployee } from "./hook/useEmployee";
-import { SkeletonPage } from "@/components/SkeletonPage";
-
+import { useEmployee } from "./hook/useEmployee"
 
 const EmployeePage = () => {
 
@@ -26,14 +24,8 @@ const EmployeePage = () => {
     handleSubmitEmployee, handleDelete
   } = useEmployee()
 
-  if (isFetching) {
-    return (
-      <SkeletonPage />
-    )
-  }
-
   return (
-    <PageWrapper>
+    <PageWrapper isFetching={isFetching}>
       <div className="flex flex-col gap-6">
         <EmployeeHeader
           setOpenForm={setOpenForm}

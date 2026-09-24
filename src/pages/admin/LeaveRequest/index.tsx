@@ -20,11 +20,11 @@ const LeaveRequestPage = () => {
         statusFilter, setStatusFilter,
         employees, employeeMap,
         filteredLeaveRequests,
-        handleAction, updatingId
+        handleAction, updatingId, isFetching
     } = useLeaveRequest();
 
     return (
-        <PageWrapper>
+        <PageWrapper isFetching={isFetching}>
             <div className="component:LeaveRequest flex flex-col gap-6">
                 <LeaveRequestHeader />
                 <div className="flex flex-wrap items-center gap-3">

@@ -13,17 +13,16 @@ const PayrollPage = () => {
         payrollSummary, payrollRecords,
         drafts,
         openDialog, setOpenDialog, dialogMode, selectedPayroll,
-        handleOpenDialog, handleSubmitPayroll,
+        handleOpenDialog, handleSubmitPayroll, isFetching
     } = usePayroll()
     const summaryMap = new Map(payrollSummary.map((p) => [p.employeeId, p]));
 
     return (
-        <PageWrapper>
+        <PageWrapper isFetching={isFetching}>
             <div className="component:Payroll flex flex-col gap-6">
                 <PayrollHeader month={month} onMonthChange={setMonth} />
 
                 <PayrollStatsCards
-                    standardWorkDays={payrollSummary[0]?.standardWorkDays ?? 26}
                     total={payrollSummary.length}
                     meetsCount={payrollSummary.filter((p) => p.meetsRequirement).length}
                     missingCount={payrollSummary.filter((p) => !p.meetsRequirement).length}

@@ -9,7 +9,7 @@ const recordPayroll = queryKeys.recordPayroll
 
 export const useFetchSummaryPayroll = (month: string) => {
     return useQuery({
-        queryKey: [summaryPayroll],
+        queryKey: [summaryPayroll, month],
         queryFn: () => {
             return api<PayrollSummary[]>(httpService.get(`/api/payroll/summary?month=${month}`))
         }

@@ -13,7 +13,7 @@ export const useLeaveRequest = () => {
         employees.forEach((emp) => map.set(emp.id, emp));
         return map;
     }, [employees]);
-    const { data } = useFetchLeaveRequest()
+    const { data, isFetching } = useFetchLeaveRequest()
     const [search, setSearch] = useState("");
     const [employeeFilter, setEmployeeFilter] = useState<string>(STATUS_ALL);
     const [statusFilter, setStatusFilter] = useState<string>(STATUS_ALL);
@@ -52,6 +52,6 @@ export const useLeaveRequest = () => {
         employees, employeeMap,
         filteredLeaveRequests,
         handleAction,
-        updatingId,
+        updatingId, isFetching
     };
 };

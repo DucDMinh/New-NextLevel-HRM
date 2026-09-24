@@ -13,7 +13,6 @@ import { EmployeeFilterSelect } from "@/components/filters/EmployeeFilterSelect"
 import { StatusFilterSelect } from "./component/StatusFilterSelect";
 import { useAttendance } from "./hook/useAttendance";
 import { getWorkedDuration } from "@/helpers/common";
-import { SkeletonPage } from "@/components/SkeletonPage";
 
 const AttendancePage = () => {
     const {
@@ -25,13 +24,8 @@ const AttendancePage = () => {
         isFetching
     } = useAttendance()
 
-    if (isFetching) {
-        return (
-            <SkeletonPage />
-        );
-    }
     return (
-        <PageWrapper>
+        <PageWrapper isFetching={isFetching}>
             <div className="component:Attendance flex flex-col gap-6">
                 <AttendanceHeader />
                 <div className="flex flex-wrap items-center gap-3">
