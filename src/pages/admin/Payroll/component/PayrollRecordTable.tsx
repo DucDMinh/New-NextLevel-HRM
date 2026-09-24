@@ -45,7 +45,8 @@ export const PayrollRecordTable = ({ data, summaryMap, onOpenDialog }: PayrollRe
                             </TableRow>
                         ) : (
                             data.map((r, index) => {
-                                const summary = summaryMap.get(r.employeeId);
+                                const matched = summaryMap.get(r.employeeId);
+                                const summary = matched?.existingRecordId === r.id ? matched : undefined;
                                 const workDaysChanged = !!summary && summary.actualWorkDays !== r.actualWorkDays;
 
                                 return (
@@ -53,7 +54,7 @@ export const PayrollRecordTable = ({ data, summaryMap, onOpenDialog }: PayrollRe
                                         <TableCell className="text-muted-foreground">{index + 1}</TableCell>
                                         <TableCell className="font-medium">
                                             <div className="flex flex-col">
-                                                <span>{summary?.fullName ?? `#${r.employeeId}`}</span>
+                                                <span>{matched?.fullName ?? `#${r.employeeId}`}</span>
                                                 <span className="text-xs text-muted-foreground">#{r.employeeId}</span>
                                             </div>
                                         </TableCell>

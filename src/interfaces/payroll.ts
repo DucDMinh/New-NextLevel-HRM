@@ -29,12 +29,13 @@ export interface PayrollRecord {
   createdAt: string;
 }
 
-export type PayrollDialogMode = "finalize" | "edit" | "refinalize" | "editAfterfinalize";
+export type PayrollAdjustFormValues = Pick<PayrollRecord, "adjustment" | "note">
 
-export interface PayrollAdjustFormValues {
-  adjustment: number;
-  note: string;
-}
+export type CreatePayrollPayload = Pick<PayrollRecord, "employeeId" | "adjustment" | "note" | "month">
+
+export type UpdatePayrollPayload = Pick<PayrollRecord, "id" | "adjustment" | "note">
+
+export type PayrollDialogMode = "finalize" | "edit" | "refinalize" | "editAfterfinalize";
 
 export const buildPayrollAdjustSchema = (basePay: number) =>
   yup.object({

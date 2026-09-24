@@ -1,19 +1,22 @@
-import { useFetchRecordPayroll, useFetchSummaryPayroll } from "@/api/payroll"
+import { useCreatePayroll, useFetchRecordPayroll, useFetchSummaryPayroll, useUpdatePayroll } from "@/api/payroll"
 import { PayrollAdjustFormValues, PayrollDialogMode, PayrollRecord, PayrollSummary } from "@/interfaces/payroll";
 import { useMemo, useState } from "react"
+import { toast } from "@/components/ui/use-toast";
 
 export const usePayroll = () => {
     const [month, setMonth] = useState("2026-09");
-    const { data: sumData, isFetching } = useFetchSummaryPayroll(month)
+    const { data: sumData, isLoading } = useFetchSummaryPayroll(month)
     const payrollSummary = useMemo<PayrollSummary[]>(
         () => sumData ?? [],
         [sumData]
     );
-    const { data: reData } = useFetchRecordPayroll()
+    const { data: reData } = useFetchRecordPayroll(month)
     const payrollRecords = useMemo<PayrollRecord[]>(
         () => reData ?? [],
         [reData]
     )
+    const createPayroll = useCreatePayroll()
+    const updatePayroll = useUpdatePayroll()
 
     const [openDialog, setOpenDialog] = useState(false);
     const [dialogMode, setDialogMode] = useState<PayrollDialogMode>("finalize");
@@ -32,9 +35,8 @@ export const usePayroll = () => {
         setOpenDialog(true);
     };
 
-    const handleSubmitPayroll = (values: PayrollAdjustFormValues) => {
+    const handleSubmitPayroll = async (values: PayrollAdjustFormValues) => {
         if (!selectedPayroll) return;
-
         switch (dialogMode) {
             case "edit":
                 setDrafts((prev) => ({
@@ -46,6 +48,33 @@ export const usePayroll = () => {
                 }));
                 setOpenDialog(false);
                 break;
+            case "finalize":
+                try {
+                    await createPayroll.mutateAsync({
+                        adjustment: Number(values.adjustment),
+                        note: values.note.trim(),
+                        employeeId: selectedPayroll.employeeId,
+                        month,
+                    })
+                    setDrafts(({ [selectedPayroll.employeeId]: _, ...rest }) => rest);
+                    setOpenDialog(false);
+                } catch (error: any) {
+                    toast(error.message)
+                }
+                break;
+            case "editAfterfinalize":
+                if (selectedPayroll.existingRecordId === null) return;
+                try {
+                    await updatePayroll.mutateAsync({
+                        id: selectedPayroll.existingRecordId,
+                        adjustment: Number(values.adjustment),
+                        note: values.note.trim(),
+                    })
+                    setOpenDialog(false);
+                } catch (error: any) {
+                    toast(error.message)
+                }
+                break;
         }
     };
 
@@ -54,6 +83,6 @@ export const usePayroll = () => {
         payrollSummary, payrollRecords,
         drafts,
         openDialog, setOpenDialog, dialogMode, selectedPayroll,
-        handleOpenDialog, handleSubmitPayroll, isFetching
+        handleOpenDialog, handleSubmitPayroll, isLoading
     }
 }

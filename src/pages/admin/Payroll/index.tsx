@@ -13,12 +13,12 @@ const PayrollPage = () => {
         payrollSummary, payrollRecords,
         drafts,
         openDialog, setOpenDialog, dialogMode, selectedPayroll,
-        handleOpenDialog, handleSubmitPayroll, isFetching
+        handleOpenDialog, handleSubmitPayroll, isLoading
     } = usePayroll()
     const summaryMap = new Map(payrollSummary.map((p) => [p.employeeId, p]));
 
     return (
-        <PageWrapper isFetching={isFetching}>
+        <PageWrapper isFetching={isLoading}>
             <div className="component:Payroll flex flex-col gap-6">
                 <PayrollHeader month={month} onMonthChange={setMonth} />
 
