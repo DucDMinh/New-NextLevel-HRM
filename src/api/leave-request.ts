@@ -1,7 +1,7 @@
 import { queryKeys } from "@/consts/queriesKeys"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { api } from "./global"
-import { LeaveRequest, UpdateLeaveRequest } from "@/interfaces/leaveRequest"
+import { LeaveRequest, LeaveRequestFormValues, UpdateLeaveRequest } from "@/interfaces/leaveRequest"
 import httpService from "@/services/httpService"
 
 const leaveKey = queryKeys.leave_request
@@ -32,6 +32,26 @@ export const useUpdateLeaveRequest = () => {
         },
         onError: (error) => {
             console.log(error)
+        }
+    })
+}
+
+export const useCreateLeaveRequest = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (payload: LeaveRequestFormValues) => {
+            return api<LeaveRequest>(httpService.post('/api/leave-requests', payload))
+        },
+        onSuccess: (record) => {
+            queryClient.setQueryData<LeaveRequest[]>([leaveKey], (prev) =>
+                prev ? [...prev, record] : [record]
+            );
+            queryClient.invalidateQueries({
+                queryKey: [leaveKey]
+            });
+        },
+        onError: (error) => {
+            console.log(error.message)
         }
     })
 }

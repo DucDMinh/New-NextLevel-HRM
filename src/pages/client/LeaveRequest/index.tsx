@@ -9,13 +9,15 @@ const LeaveRequestPage = () => {
 
     const {
         openForm, setOpenForm,
-        myLeaveRequests, leaveBalance
+        myLeaveRequests, leaveBalance, handleCreateLR
     } = useClientLeaveRequest()
 
     return (
         <PageWrapper>
             <div className="component:LeaveRequest flex flex-col gap-6">
-                <LeaveRequestHeader onCreate={() => setOpenForm(true)} />
+                <LeaveRequestHeader onCreate={() => {
+                    setOpenForm(true)
+                }} />
                 <LeaveBalanceCards
                     {...leaveBalance}
                 />
@@ -32,7 +34,7 @@ const LeaveRequestPage = () => {
             <DialogLeaveRequestForm
                 isOpen={openForm}
                 toggle={() => setOpenForm((prev) => !prev)}
-                onSubmit={() => setOpenForm(false)}
+                onSubmit={handleCreateLR}
             />
         </PageWrapper>
     );

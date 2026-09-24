@@ -38,7 +38,7 @@ export const leaveRequestSchema = yup.object({
       (value, context) => {
         const { fromDate } = context.parent;
         if (!value || !fromDate) return true;
-        return moment(value).isSameOrAfter(moment(fromDate), "day");
+        return moment(new Date(value)).isSameOrAfter(moment(new Date(fromDate)), "day");
       }
     ),
   reason: yup
