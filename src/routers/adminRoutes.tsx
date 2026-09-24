@@ -7,6 +7,7 @@ const Homepage = lazy(() => import("@/pages/admin/Homepage"));
 const Employee = lazy(() => import("@/pages/admin/Employee"));
 const Attendance = lazy(() => import("@/pages/admin/Attendance"))
 const LeaveRequest = lazy(() => import("@/pages/admin/LeaveRequest"))
+const Payroll = lazy(() => import("@/pages/admin/Payroll"))
 
 const adminRoutes: RouteObject = {
   path: AdminUrl.Homepage,
@@ -16,7 +17,7 @@ const adminRoutes: RouteObject = {
     { path: AdminUrl.Employee, element: <Employee /> },
     { path: AdminUrl.Attendance, element: <Attendance /> },
     { path: AdminUrl.Leave_Request, element: <LeaveRequest /> },
-    { path: AdminUrl.Payroll, element: <></> }
+    { path: AdminUrl.Payroll, element: <Payroll /> },
   ],
 };
 
