@@ -50,11 +50,11 @@ const LeaveRequestPage = () => {
                     </span>
                 </div>
                 <Card>
-                    <CardContent>
+                    <CardContent className="p-0">
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead className="w-12">#</TableHead>
+                                    <TableHead>#</TableHead>
                                     <TableHead>Nhân viên</TableHead>
                                     <TableHead>Từ ngày</TableHead>
                                     <TableHead>Đến ngày</TableHead>

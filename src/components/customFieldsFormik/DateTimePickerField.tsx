@@ -62,6 +62,7 @@ const DateTimePickerField = (
 
     afterOnChange && afterOnChange(nextDate);
     setFieldValue(name, nextDate);
+    setCalendarOpen(false)
   };
 
   const onHandleChangeTime = (timeValue: TimeValue | null) => {

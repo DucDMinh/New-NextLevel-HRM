@@ -1,11 +1,10 @@
 import { SidebarItem } from '@/interfaces/sidebar'
-import { Boxes, ClipboardCheck, LayoutDashboard, List, Users } from 'lucide-react'
+import { Boxes, ClipboardCheck, LayoutDashboard, List } from 'lucide-react'
 
 
 export const ClientItems: SidebarItem[] = [
-    { label: "Dashboard", href: "/", icon: LayoutDashboard },
-    { label: "Attendance", href: "/attendances", icon: ClipboardCheck },
-    { label: "Todos", href: "/todos", icon: List },
-    { label: "Apps", href: "/apps", icon: Boxes },
-    { label: "Users", href: "/users", icon: Users },
+    { label: "Trang chủ", href: "/", icon: LayoutDashboard },
+    { label: "Chấm công", href: "/attendances", icon: ClipboardCheck },
+    { label: "Nghỉ phép", href: "/leave-requests", icon: List },
+    { label: "Lương thưởng", href: "/payrolls", icon: Boxes }
 ]
