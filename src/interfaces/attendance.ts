@@ -5,3 +5,5 @@ export interface Attendance {
   checkIn: string;
   checkOut: string | null;
 }
+
+export type TodayAttendanceStatus = "notCheckedIn" | "working" | "done";
