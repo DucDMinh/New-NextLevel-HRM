@@ -29,10 +29,17 @@ export const useClientLeaveRequest = () => {
     };
 
     const leaveBalance = useMemo<LeaveBalanceCardsProps>(() => {
-        const sumDays = (status: LeaveRequestStatus) =>
-            myLeaveRequests
+        const sumDays = (status: LeaveRequestStatus) => {
+            if (status == "pending") {
+                return myLeaveRequests
+                    .filter((lr) => lr.status === status)
+                    .length
+            }
+            return myLeaveRequests
                 .filter((lr) => lr.status === status)
                 .reduce((total, lr) => total + getLeaveDays(lr), 0);
+        }
+
 
         const used = sumDays("approved");
         return {

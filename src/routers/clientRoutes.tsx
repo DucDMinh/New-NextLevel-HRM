@@ -6,6 +6,7 @@ import ProtectedLayout from "./ProtectedLayout";
 const Homepage = lazy(() => import("@/pages/client/HomePage"));
 const Attendance = lazy(() => import("@/pages/client/Attendance"));
 const LeaveRequest = lazy(() => import("@/pages/client/LeaveRequest"));
+const Payroll = lazy(() => import("@/pages/client/Payroll"))
 
 const clientRoutes: RouteObject = {
   path: EmpUrl.Homepage,
@@ -14,7 +15,7 @@ const clientRoutes: RouteObject = {
     { index: true, element: <Homepage /> },
     { path: EmpUrl.Attendance, element: <Attendance /> },
     { path: EmpUrl.Leave_Request, element: <LeaveRequest /> },
-    { path: EmpUrl.Payroll, element: <></> }
+    { path: EmpUrl.Payroll, element: <Payroll /> }
   ],
 };
 
